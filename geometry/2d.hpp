@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <complex>
 using namespace std;
 
@@ -7,11 +9,14 @@ using namespace std;
 typedef complex<double> vector2;
 typedef pair<vector2, vector2> line;
 
-// 内積
+// 内積 |a||b|cosΘ
 double dot(vector2 a, vector2 b) { return real(conj(a) * b); }
 
-// 外積
+// 外積 |a||b|sinΘ
 double cross(vector2 a, vector2 b) { return imag(conj(a) * b); }
+
+// 2ベクトル間の角度・回転方向 [-π, π]
+double angle(vector2 a, vector2 b) { return atan2(cross(a, b), dot(a, b)); }
 
 // 2直線の直行判定
 bool is_orthogonal(line a, line b) { return EQ(dot(a.first - a.second, b.first - b.second), 0.0); }
