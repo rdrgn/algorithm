@@ -1,40 +1,24 @@
 #include <cassert>
 #include <chrono>
+#include <iostream>
 using namespace std;
 
 class timer {
  public:
-  timer() : enabled(false), time_elapsed() {}
-  void start() {
-    if (!enabled) time_begin = now();
-  }
-  void stop() {
-    if (!enabled) return;
-    time_elapsed += now() - time_begin;
-    enabled = false;
-  }
-  int elapsed() {
-    auto t = time_elapsed;
-    if (enabled) t += now() - time_begin;
-    return chrono::duration_cast<chrono::milliseconds>(t).count();
-  }
+  timer() : time_begin(timer::now()) {}
+  int elapsed() { return chrono::duration_cast<chrono::milliseconds>(timer::now() - time_begin).count(); }
 
  private:
-  bool enabled;
   chrono::system_clock::time_point time_begin;
-  chrono::system_clock::duration time_elapsed;
   static chrono::system_clock::time_point now() { chrono::system_clock::now(); }
 };
 
 int main() {
   timer t;
-  assert(t.elapsed() == 0);
-  t.start();
-  int a = t.elapsed();
-  assert(a <= t.elapsed());
-  t.stop();
-  assert(t.elapsed() == t.elapsed());
-  t.start();
-  int b = t.elapsed();
-  assert(b <= t.elapsed());
+  int a, b;
+  a = t.elapsed();
+  do {
+    b = t.elapsed();
+  } while (b < 1000);
+  assert(a < b);
 }
