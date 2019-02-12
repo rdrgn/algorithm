@@ -14,10 +14,9 @@ class timer {
 
 int main() {
   timer t;
-  int a, b;
-  a = t.elapsed();
-  do {
-    b = t.elapsed();
-  } while (b < 1000);
-  assert(a < b);
+  int i = 0;
+  while (t.elapsed() < 1000) {
+    i++;
+  }
+  assert(1000 <= t.elapsed());
 }
