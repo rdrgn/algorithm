@@ -1,20 +1,18 @@
-#include <cassert>
 #include <vector>
-using namespace std;
 
-class union_find {
+class UnionFind {
  private:
-  vector<int> parent;
-  vector<int> rank;
-  vector<int> sizes;
+  std::vector<int> parent;
+  std::vector<int> rank;
+  std::vector<int> sizes;
 
  public:
-  union_find(int n) : parent(n), rank(n), sizes(n, 1) {
+  UnionFind(int n) : parent(n), rank(n), sizes(n, 1) {
     for (int i = 0; i < n; i++) parent[i] = i;
   }
-  void unite(int a, int b) {
-    a = find(a);
-    b = find(b);
+  void Unite(int a, int b) {
+    a = Find(a);
+    b = Find(b);
     if (a == b) return;
     if (rank[a] < rank[b]) {
       parent[a] = b;
@@ -22,31 +20,34 @@ class union_find {
       parent[b] = a;
       if (rank[a] == rank[b]) rank[a]++;
     }
-    sizes[find(a)] = sizes[a] + sizes[b];
+    sizes[Find(a)] = sizes[a] + sizes[b];
   }
-  int find(int a) { return parent[a] == a ? a : parent[a] = find(parent[a]); }
-  int size(int a) { return sizes[find(a)]; }
+  int Find(int a) { return parent[a] == a ? a : parent[a] = Find(parent[a]); }
+  int Size(int a) { return sizes[Find(a)]; }
 };
 
+// test
+#include <cassert>
+
 int main() {
-  union_find uf(6);
-  assert(uf.size(2) == 1);
-  uf.unite(0, 2);
-  uf.unite(1, 3);
-  uf.unite(5, 1);
-  assert(uf.find(0) == 0);
-  assert(uf.find(1) == 1);
-  assert(uf.find(2) == 0);
-  assert(uf.find(3) == 1);
-  assert(uf.find(4) == 4);
-  assert(uf.find(5) == 1);
-  assert(uf.size(2) == 2);
-  uf.unite(0, 1);
-  assert(uf.find(0) == 0);
-  assert(uf.find(1) == 0);
-  assert(uf.find(2) == 0);
-  assert(uf.find(3) == 0);
-  assert(uf.find(4) == 4);
-  assert(uf.find(5) == 0);
-  assert(uf.size(2) == 5);
+  UnionFind uf(6);
+  assert(uf.Size(2) == 1);
+  uf.Unite(0, 2);
+  uf.Unite(1, 3);
+  uf.Unite(5, 1);
+  assert(uf.Find(0) == 0);
+  assert(uf.Find(1) == 1);
+  assert(uf.Find(2) == 0);
+  assert(uf.Find(3) == 1);
+  assert(uf.Find(4) == 4);
+  assert(uf.Find(5) == 1);
+  assert(uf.Size(2) == 2);
+  uf.Unite(0, 1);
+  assert(uf.Find(0) == 0);
+  assert(uf.Find(1) == 0);
+  assert(uf.Find(2) == 0);
+  assert(uf.Find(3) == 0);
+  assert(uf.Find(4) == 4);
+  assert(uf.Find(5) == 0);
+  assert(uf.Size(2) == 5);
 }

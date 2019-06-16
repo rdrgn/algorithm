@@ -1,30 +1,31 @@
-#include <cassert>
 #include <queue>
 #include <vector>
-using namespace std;
-typedef long long ll;
 
-vector<ll> dijkstra(const vector<vector<pair<int, ll>>> &graph, int s) {
-  vector<ll> dist(graph.size(), 1e18);
-  priority_queue<pair<ll, int>> q;
-  q.push(pair<ll, int>{0, s});
+template <typename T>
+std::vector<T> Dijkstra(const std::vector<std::vector<std::pair<int, T>>> &graph, int s) {
+  std::vector<T> dist(graph.size(), 1e18);
+  std::priority_queue<std::pair<T, int>> q;
+  q.push(std::pair<T, int>{0, s});
   while (!q.empty()) {
     int i = q.top().second;
-    ll di = -q.top().first;
+    T di = -q.top().first;
     q.pop();
     if (dist[i] <= di) continue;
     dist[i] = di;
     for (auto e : graph[i]) {
       int j = e.first;
-      ll dj = di + e.second;
-      if (dist[j] > dj) q.push(pair<ll, int>{-dj, j});
+      T dj = di + e.second;
+      if (dist[j] > dj) q.push(std::pair<T, int>{-dj, j});
     }
   }
   return dist;
 }
 
+// test
+#include <cassert>
+
 int main() {
-  vector<vector<pair<int, ll>>> graph(7);
+  std::vector<std::vector<std::pair<int, long long>>> graph(7);
   auto add_undirected_edge = [&graph](int a, int b, int cost) {
     graph[a].push_back({b, cost});
     graph[b].push_back({a, cost});
@@ -39,7 +40,7 @@ int main() {
   add_undirected_edge(4, 5, 3);
   add_undirected_edge(4, 6, 5);
   add_undirected_edge(5, 6, 9);
-  auto dist = dijkstra(graph, 0);
+  auto dist = Dijkstra(graph, 0);
   assert(dist[0] == 0);
   assert(dist[1] == 2);
   assert(dist[2] == 5);
