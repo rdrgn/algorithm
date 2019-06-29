@@ -18,7 +18,10 @@ class ModuloCombination {
       inverse_factrial[i] = Pow(factrial[i], mod - 2);
     }
   }
-  T operator()(T n, T k) { return factrial[n] * inverse_factrial[k] % mod * inverse_factrial[n - k] % mod; }
+  T operator()(T n, T k) {
+    if (n < 0 || k < 0 || n < k) return 0;
+    return factrial[n] * inverse_factrial[k] % mod * inverse_factrial[n - k] % mod;
+  }
 };
 
 // test
@@ -29,6 +32,9 @@ int main() {
   assert(c(1, 1) == 1);
   assert(c(10, 5) == 252);
   assert(c(300000, 150000) == 782364718);
+  assert(c(-1, 1) == 0);
+  assert(c(1, -1) == 0);
+  assert(c(1, 2) == 0);
   ModuloCombination<long long, 998244353> c_alt(300000);
   assert(c_alt(300000, 150000) == 442086455);
 }
