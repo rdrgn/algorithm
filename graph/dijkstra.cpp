@@ -1,10 +1,11 @@
 #include <cassert>
+#include <limits>
 #include <queue>
 #include <vector>
 
 template <typename T>
 std::vector<T> Dijkstra(const std::vector<std::vector<std::pair<int, T>>> &graph, int s) {
-  std::vector<T> dist(graph.size(), 1e18);
+  std::vector<T> dist(graph.size(), std::numeric_limits<T>::max());
   std::priority_queue<std::pair<T, int>> q;
   q.push(std::pair<T, int>{0, s});
   while (!q.empty()) {
