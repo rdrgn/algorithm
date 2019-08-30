@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-vector<string> split(const string& s, const regex& separator) {
+vector<string> Split(const string& s, const regex& separator) {
   vector<string> r;
   auto it = sregex_token_iterator(begin(s), end(s), separator, -1);
   auto it_end = sregex_token_iterator();
@@ -12,7 +12,7 @@ vector<string> split(const string& s, const regex& separator) {
   return r;
 }
 
-string join(const vector<string>& v, const string& separator) {
+string Join(const vector<string>& v, const string& separator) {
   if (v.empty()) return "";
   string r = v.front();
   for (auto it = begin(v) + 1; it != end(v); it++) {
@@ -22,8 +22,9 @@ string join(const vector<string>& v, const string& separator) {
   return r;
 }
 
+// test
 int main() {
   string s = "Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec";
-  auto r = join(split(s, regex(",")), " / ");
+  auto r = Join(Split(s, regex(",")), " / ");
   assert(r == "Jan / Feb / Mar / Apr / May / Jun / Jul / Aug / Sep / Oct / Nov / Dec");
 }

@@ -1,3 +1,4 @@
+#include <cassert>
 #include <vector>
 
 class UnionFind {
@@ -27,8 +28,6 @@ class UnionFind {
 };
 
 // test
-#include <cassert>
-
 int main() {
   UnionFind uf(6);
   assert(uf.Size(2) == 1);

@@ -1,3 +1,4 @@
+#include <cassert>
 #include <queue>
 #include <vector>
 
@@ -22,8 +23,6 @@ std::vector<T> Dijkstra(const std::vector<std::vector<std::pair<int, T>>> &graph
 }
 
 // test
-#include <cassert>
-
 int main() {
   std::vector<std::vector<std::pair<int, long long>>> graph(7);
   auto add_undirected_edge = [&graph](int a, int b, int cost) {

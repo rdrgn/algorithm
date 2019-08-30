@@ -1,47 +1,48 @@
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <complex>
-using namespace std;
 
 #define EPS (1e-6)
-#define EQ(a, b) (abs((a) - (b)) < EPS)
+#define EQ(a, b) (std::abs((a) - (b)) < EPS)
 
-typedef complex<double> vector2;
-typedef pair<vector2, vector2> line;
+using Vector2 = std::complex<double>;
+using Line = std::pair<Vector2, Vector2>;
 
 // 内積 |a||b|cosΘ
-double dot(vector2 a, vector2 b) { return real(conj(a) * b); }
+double Dot(Vector2 a, Vector2 b) { return std::real(std::conj(a) * b); }
 
 // 外積 |a||b|sinΘ
-double cross(vector2 a, vector2 b) { return imag(conj(a) * b); }
+double Cross(Vector2 a, Vector2 b) { return std::imag(std::conj(a) * b); }
 
 // 2ベクトル間の角度・回転方向 [-π, π]
-double angle(vector2 a, vector2 b) { return atan2(cross(a, b), dot(a, b)); }
+double Angle(Vector2 a, Vector2 b) { return std::atan2(Cross(a, b), Dot(a, b)); }
 
 // 2直線の直行判定
-bool is_orthogonal(line a, line b) { return EQ(dot(a.first - a.second, b.first - b.second), 0.0); }
+bool IsOrthogonal(Line a, Line b) { return EQ(Dot(a.first - a.second, b.first - b.second), 0.0); }
 
 // 2直線の平行判定
-bool is_parallel(line a, line b) { return EQ(cross(a.first - a.second, b.first - b.second), 0.0); }
+bool IsParallel(Line a, Line b) { return EQ(Cross(a.first - a.second, b.first - b.second), 0.0); }
 
 // 直線lと点pの距離
-double distance_l(line l, vector2 p) { return abs(cross(l.second - l.first, p - l.first)) / abs(l.second - l.first); }
+double DistanceL(Line l, Vector2 p) {
+  return abs(Cross(l.second - l.first, p - l.first)) / std::abs(l.second - l.first);
+}
 
 // 線分sと点pの距離
-double distance_ls(line ls, vector2 p) {
-  if (dot(ls.second - ls.first, p - ls.first) < EPS) return abs(p - ls.first);
-  if (dot(ls.first - ls.second, p - ls.second) < EPS) return abs(p - ls.second);
-  return abs(cross(ls.second - ls.first, p - ls.first)) / abs(ls.second - ls.first);
+double DistanceLS(Line ls, Vector2 p) {
+  if (Dot(ls.second - ls.first, p - ls.first) < EPS) return std::abs(p - ls.first);
+  if (Dot(ls.first - ls.second, p - ls.second) < EPS) return std::abs(p - ls.second);
+  return abs(Cross(ls.second - ls.first, p - ls.first)) / std::abs(ls.second - ls.first);
 }
 
 // 線分aと線分bの端点を除いた交差判定
-bool is_intersected_ls(line a, line b) {
-  return cross(a.second - a.first, b.first - a.first) * cross(a.second - a.first, b.second - a.first) < 0 &&
-         cross(b.second - b.first, a.first - b.first) * cross(b.second - b.first, a.second - b.first) < 0;
+bool IsIntersectedLS(Line a, Line b) {
+  return Cross(a.second - a.first, b.first - a.first) * Cross(a.second - a.first, b.second - a.first) < 0 &&
+         Cross(b.second - b.first, a.first - b.first) * Cross(b.second - b.first, a.second - b.first) < 0;
 }
 
 // 直線aと直線bの交点
-vector2 intersection_l(line a, line b) {
-  vector2 u = a.second - a.first, v = b.second - b.first;
-  return a.first + u * cross(v, b.first - a.first) / cross(v, u);
+Vector2 IntersectionL(Line a, Line b) {
+  Vector2 u = a.second - a.first, v = b.second - b.first;
+  return a.first + u * Cross(v, b.first - a.first) / Cross(v, u);
 }

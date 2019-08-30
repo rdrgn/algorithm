@@ -1,3 +1,4 @@
+#include <cassert>
 #include <vector>
 
 // Garner algorithm
@@ -40,7 +41,6 @@ class ChineseRemainderTheorem {
 };
 
 // test
-#include <cassert>
 constexpr int mod = 1e9 + 7;
 
 int main() {

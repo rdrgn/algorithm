@@ -3,20 +3,21 @@
 #include <iostream>
 using namespace std;
 
-class timer {
+class Timer {
  public:
-  timer() : time_begin(clock()) {}
-  int elapsed() { return (int)1000 * (clock() - time_begin) / CLOCKS_PER_SEC; }
+  Timer() : time_begin(clock()) {}
+  int Elapsed() { return (int)1000 * (clock() - time_begin) / CLOCKS_PER_SEC; }
 
  private:
   clock_t time_begin;
 };
 
+// test
 int main() {
-  timer t;
+  Timer t;
   int i = 0;
-  while (t.elapsed() < 1000) {
+  while (t.Elapsed() < 1000) {
     i++;
   }
-  assert(1000 <= t.elapsed());
+  assert(1000 <= t.Elapsed());
 }

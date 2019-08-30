@@ -2,21 +2,22 @@
 #include <chrono>
 using namespace std;
 
-class timer {
+class Timer {
  public:
-  timer() : time_begin(now()) {}
-  int elapsed() { return chrono::duration_cast<chrono::milliseconds>(now() - time_begin).count(); }
+  Timer() : time_begin(Now()) {}
+  int Elapsed() { return chrono::duration_cast<chrono::milliseconds>(Now() - time_begin).count(); }
 
  private:
   chrono::system_clock::time_point time_begin;
-  static chrono::system_clock::time_point now() { return chrono::system_clock::now(); }
+  static chrono::system_clock::time_point Now() { return chrono::system_clock::now(); }
 };
 
+// test
 int main() {
-  timer t;
+  Timer t;
   int i = 0;
-  while (t.elapsed() < 1000) {
+  while (t.Elapsed() < 1000) {
     i++;
   }
-  assert(1000 <= t.elapsed());
+  assert(1000 <= t.Elapsed());
 }

@@ -1,3 +1,4 @@
+#include <cassert>
 #include <vector>
 
 template <typename T, T mod>
@@ -25,8 +26,6 @@ class ModuloCombination {
 };
 
 // test
-#include <cassert>
-
 int main() {
   ModuloCombination<long long, int(1e9 + 7)> c(300000);
   assert(c(1, 1) == 1);
