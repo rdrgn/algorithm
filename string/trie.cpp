@@ -2,7 +2,6 @@
 #include <climits>
 #include <set>
 #include <string>
-using namespace std;
 
 class Trie {
  private:
@@ -10,8 +9,8 @@ class Trie {
   Trie *children[1 << CHAR_BIT];
 
  public:
-  Trie() { fill(children, children + (1 << CHAR_BIT), nullptr); }
-  void Insert(const string &s) { return this->Insert(s.data()); }
+  Trie() { std::fill(children, children + (1 << CHAR_BIT), nullptr); }
+  void Insert(const std::string &s) { return this->Insert(s.data()); }
   void Insert(const char *s) {
     if (*s == '\0') {
       value = true;
@@ -20,7 +19,7 @@ class Trie {
       this->children[*s]->Insert(s + 1);
     }
   }
-  int Count(const string &s) { return this->Count(s.data()); }
+  int Count(const std::string &s) { return this->Count(s.data()); }
   int Count(const char *s) {
     if (*s == '\0' && value) return 1;
     if (this->children[*s] == nullptr) return 0;
@@ -31,7 +30,7 @@ class Trie {
 // test
 int main() {
   Trie t;
-  set<string> s = {"A", "to", "tea", "ted", "ten", "i", "in", "inn"};
+  std::set<std::string> s = {"A", "to", "tea", "ted", "ten", "i", "in", "inn"};
   for (auto e : s) {
     assert(t.Count(e) == 0);
     t.Insert(e);
