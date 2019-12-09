@@ -1,7 +1,6 @@
 #include <time.h>
 #include <cassert>
 #include <iostream>
-using namespace std;
 
 class Timer {
  public:
