@@ -2,13 +2,13 @@
 #include <cmath>
 
 // a_1 + a_2 + ... + a_n (a_i = a_1 + (n - 1) * d)
-template <typename T>
+template <class T>
 T ArithmeticSeries(T a, T d, T n) {
   return n * (2 * a + (n - 1) * d) / 2;
 }
 
 // a_1 * a_2 * ... * a_n (a_i = a_1 + r ^ (n - 1))
-template <typename T>
+template <class T>
 T GeometricSeries(T a, T r, T n) {
   return r == 1 ? n * a : a * (pow(r, n) - 1) / (r - 1);
 }

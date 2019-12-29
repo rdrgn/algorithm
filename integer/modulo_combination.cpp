@@ -1,7 +1,7 @@
 #include <cassert>
 #include <vector>
 
-template <typename T, T MOD>
+template <class T, T MOD>
 class ModuloCombination {
  private:
   std::vector<T> factrial, inverse_factrial;

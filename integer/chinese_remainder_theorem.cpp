@@ -2,7 +2,7 @@
 #include <vector>
 
 // Garner algorithm
-template <typename T, T MOD>
+template <class T, T MOD>
 class ChineseRemainderTheorem {
  private:
   using S = typename std::vector<T>::size_type;

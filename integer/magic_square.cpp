@@ -1,7 +1,7 @@
 #include <cassert>
 #include <vector>
 
-template <typename T>
+template <class T>
 std::vector<std::vector<T>> MagicSquare(T n) {
   std::vector<std::vector<T>> a(n, std::vector<T>(n));
   if (n < 1 || n == 2) return a;

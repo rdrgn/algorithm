@@ -3,7 +3,7 @@
 #include <queue>
 #include <vector>
 
-template <typename T>
+template <class T>
 std::vector<T> Dijkstra(const std::vector<std::vector<std::pair<int, T>>> &graph, int s) {
   std::vector<T> dist(graph.size(), std::numeric_limits<T>::max());
   std::priority_queue<std::pair<T, int>> q;
