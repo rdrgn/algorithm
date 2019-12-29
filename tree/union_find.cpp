@@ -3,27 +3,27 @@
 
 class UnionFind {
  private:
-  std::vector<size_t> parent;
-  std::vector<size_t> rank;
+  std::vector<size_t> parents;
+  std::vector<size_t> ranks;
   std::vector<size_t> sizes;
 
  public:
-  UnionFind(size_t n) : parent(n), rank(n), sizes(n, 1) {
-    for (size_t i = 0; i < n; i++) parent[i] = i;
+  UnionFind(size_t n) : parents(n), ranks(n), sizes(n, 1) {
+    for (size_t i = 0; i < n; i++) parents[i] = i;
   }
   void Unite(size_t a, size_t b) {
     a = Find(a);
     b = Find(b);
     if (a == b) return;
-    if (rank[a] < rank[b]) {
-      parent[a] = b;
+    if (ranks[a] < ranks[b]) {
+      parents[a] = b;
     } else {
-      parent[b] = a;
-      if (rank[a] == rank[b]) rank[a]++;
+      parents[b] = a;
+      if (ranks[a] == ranks[b]) ranks[a]++;
     }
     sizes[Find(a)] = sizes[a] + sizes[b];
   }
-  int Find(size_t a) { return parent[a] == a ? a : parent[a] = Find(parent[a]); }
+  int Find(size_t a) { return parents[a] == a ? a : parents[a] = Find(parents[a]); }
   int Size(size_t a) { return sizes[Find(a)]; }
 };
 
