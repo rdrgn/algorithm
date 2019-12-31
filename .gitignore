@@ -1,6 +1,8 @@
-.*/
+.vscode/ipch/
 _*/
 *.out
 *.exe
 *.class
-*.txt
+in
+out
+diff
