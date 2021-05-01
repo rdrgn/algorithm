@@ -4,20 +4,22 @@
 #include <vector>
 
 template <class T>
-std::vector<T> Dijkstra(const std::vector<std::vector<std::pair<int, T>>> &graph, int s) {
+std::vector<T> Dijkstra(const std::vector<std::vector<std::pair<int, T>>>& graph, int s) {
   std::vector<T> dist(graph.size(), std::numeric_limits<T>::max());
   std::priority_queue<std::pair<T, int>> q;
-  q.push(std::pair<T, int>{0, s});
+  dist[s] = 0;
+  q.emplace(0, s);
   while (!q.empty()) {
     int i = q.top().second;
     T di = -q.top().first;
     q.pop();
-    if (dist[i] <= di) continue;
-    dist[i] = di;
+    if (dist[i] < di) continue;
     for (auto e : graph[i]) {
       int j = e.first;
       T dj = di + e.second;
-      if (dist[j] > dj) q.push(std::pair<T, int>{-dj, j});
+      if (dist[j] <= dj) continue;
+      dist[j] = dj;
+      q.emplace(-dj, j);
     }
   }
   return dist;
